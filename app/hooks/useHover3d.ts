@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import _ from 'lodash';
 
 type UseHover3dProps = {
   rotationFactorX?: number;
@@ -32,7 +33,7 @@ export default function useHover3d(
   }); // ratio of mouse position to element size
   const [isHovering, setIsHovering] = useState(false);
 
-  const calculateRotationRatio = (e: MouseEvent) => {
+  const calculateRotationRatio = _.throttle((e: MouseEvent) => {
     const { offsetWidth: width, offsetHeight: height } = ref.current!;
     const { clientX, clientY } = e;
 
@@ -40,7 +41,7 @@ export default function useHover3d(
     const newY = (clientX - width / 2) / width;
 
     setRotationRatio({ x: newX, y: newY });
-  };
+  }, 50);
 
   const handleMouseEnter = () => {
     setIsHovering(true);

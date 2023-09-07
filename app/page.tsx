@@ -1,4 +1,6 @@
-import Header from './components/Header/Header';
+import Header from './components/layouts/Header';
+
+// поправить layout background
 
 export default function Home() {
   return (
