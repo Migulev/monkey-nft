@@ -3,13 +3,33 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import { FaRocket, FaWallet } from 'react-icons/fa';
+import { Abril_Fatface } from 'next/font/google';
+import { useRef } from 'react';
 
 import logo from '@/public/logo.png';
+import useHover3d from '@/app/hooks/useHover3d';
 import Button from '../ui/Button';
 
+const abril = Abril_Fatface({
+  subsets: ['latin'],
+  weight: '400',
+});
+
 const Header = () => {
+  const heroSection = useRef<HTMLDivElement>(null);
+
+  const frameHover = useHover3d(heroSection, {
+    rotationFactorX: -25,
+    rotationFactorY: 25,
+  });
+
+  const imageHover = useHover3d(heroSection, {
+    rotationFactorX: -15,
+    rotationFactorY: 5,
+  });
+
   return (
-    <HeaderStyled>
+    <HeaderStyled ref={heroSection}>
       <nav>
         <div className="logo">
           <Image src={logo} alt="logo" width={36} />
@@ -34,6 +54,46 @@ const Header = () => {
           <Button name="Connect Wallet" icon={<FaWallet />} />
         </ul>
       </nav>
+      <div className="header-content">
+        <div className="text-content">
+          <h1 className={abril.className}>
+            Buy, collect, and sell extraordinary NFTs
+          </h1>
+          <p>
+            Acquire expertise in navigating the rapidly evolving and
+            exhilarating NFT landscape, unveil the highly sought-after NFTs, and
+            comprehend the possible advantages and disadvantages of acquiring,
+            amassing, and vending these exceptional digital assets.
+          </p>
+          <div className="buttons">
+            <Button
+              name="Get Started"
+              background="#f2994a"
+              color="#fff"
+              border="1px solid #f2994a"
+              icon={<FaRocket />}
+            />
+            <Button name="Learn More" />
+          </div>
+        </div>
+        <div className="image-content">
+          <div
+            className="image"
+            style={{
+              transform: frameHover.transform,
+            }}>
+            <Image
+              src="/monkey.png"
+              width={600}
+              height={600}
+              alt="hero image"
+              style={{
+                transform: imageHover.transform,
+              }}
+            />
+          </div>
+        </div>
+      </div>
     </HeaderStyled>
   );
 };
@@ -94,7 +154,7 @@ const HeaderStyled = styled.header`
     min-height: calc(100vh - 10vh);
 
     .text-content {
-      > h1 {
+      h1 {
         font-size: clamp(2rem, 5vw, 5rem);
         color: #f2994a;
         transition: all 0.01s linear;
@@ -113,9 +173,11 @@ const HeaderStyled = styled.header`
       border-radius: 8px;
       background-color: var(--color-bg);
       border: 1px solid var(--color-border);
+      transition: transform 0.3s ease-out;
 
       img {
         border-radius: 8px;
+        transition: transform 0.3s ease-out;
       }
     }
   }
