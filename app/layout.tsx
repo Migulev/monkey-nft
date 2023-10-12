@@ -1,4 +1,4 @@
-import LayoutBackground from './components/layouts/LayoutBackground';
+import LayoutBackground from './components/LayoutBackground';
 import './globals.css';
 import { Inter } from 'next/font/google';
 

@@ -6,9 +6,10 @@ import { FaRocket, FaWallet } from 'react-icons/fa';
 import { Abril_Fatface } from 'next/font/google';
 import { useRef } from 'react';
 
-import logo from '@/public/logo.png';
+import logo from '@/public/monkey_logo.png';
+import mainImage from '@/public/monkey-main.png';
 import useHover3d from '@/app/hooks/useHover3d';
-import Button from '../ui/Button';
+import Button from './ui/Button';
 
 const abril = Abril_Fatface({
   subsets: ['latin'],
@@ -32,8 +33,11 @@ const Header = () => {
     <HeaderStyled ref={heroSection}>
       <nav>
         <div className="logo">
-          <Image src={logo} alt="logo" width={36} />
-          <h2>Logo</h2>
+          <Image src={logo} alt="logo" width={120} />
+          <div className="flex-col">
+            <p>Monkey</p>
+            <p>Business</p>
+          </div>
         </div>
         <div className="input">
           <input type="text" placeholder="Search" />
@@ -68,9 +72,9 @@ const Header = () => {
           <div className="buttons">
             <Button
               name="Get Started"
-              background="#f2994a"
+              background="#f2ac4a"
               color="#fff"
-              border="1px solid #f2994a"
+              border="1px solid #f2ac4a"
               icon={<FaRocket />}
             />
             <Button name="Learn More" />
@@ -83,11 +87,12 @@ const Header = () => {
               transform: frameHover.transform,
             }}>
             <Image
-              src="/monkey.png"
+              src={mainImage}
               width={600}
               height={600}
               alt="hero image"
               style={{
+                objectFit: 'cover',
                 transform: imageHover.transform,
               }}
             />
@@ -100,7 +105,7 @@ const Header = () => {
 
 const HeaderStyled = styled.header`
   nav {
-    padding: 0 4rem;
+    padding: 0 10rem;
     min-height: 10vh;
     border-bottom: 1px solid var(--color-border);
     display: flex;
@@ -109,8 +114,13 @@ const HeaderStyled = styled.header`
     .logo {
       display: flex;
       align-items: center;
-      gap: 1rem;
       cursor: pointer;
+    }
+
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .input {
